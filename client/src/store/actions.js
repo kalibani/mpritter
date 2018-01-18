@@ -4,7 +4,7 @@ import swal from 'sweetalert'
 
 const token = localStorage.getItem('token')
 const http = axios.create({
-  baseURL: 'http://hacktivoverflow-api.kautzaralibani.com/api',
+  baseURL: 'http://localhost:3000/api',
   headers: {
     Authorization: token
   }
@@ -23,7 +23,7 @@ export const doLogin = ({ commit }, payload) => {
         button: 'OK'
       }).then(() => {
         location.reload()
-        router.push('/questions')
+        router.push('/home')
       })
     } else {
       swal({
@@ -57,6 +57,32 @@ export const doRegister = ({ commit }, payload) => {
         button: 'OK'
       })
     }
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+}
+
+export const getProfile = ({ commit }) => {
+  let token = localStorage.getItem('token')
+  if (token) {
+    http.post('/users/profile')
+    .then(({data}) => {
+      commit('saveUser', data)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  } else {
+    console.log('belum login');
+  }
+}
+
+export const postTweet = ({ commit }, payload) => {
+  http.post('/twits', payload)
+  .then(({data}) => {
+    console.log('postTweet', data);
+    commit('savePostTweets', data)
   })
   .catch((err) => {
     console.log(err)
