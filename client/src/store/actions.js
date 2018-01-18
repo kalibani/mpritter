@@ -88,3 +88,40 @@ export const postTweet = ({ commit }, payload) => {
     console.log(err)
   })
 }
+
+export const getAllTweet = ({ commit }) => {
+  http.get('/twits')
+  .then(({data}) => {
+    console.log('ini twit', data);
+    commit('saveTwits', data)
+  }).catch((err) => {
+    console.log(err)
+  })
+}
+
+export const deleteTwit = ({ commit }, id) => {
+  http.delete('/twits/'+ id)
+  .then(({data}) => {
+    commit('saveDelete', data)
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+}
+
+
+export const updateProfile = ({ commit }, payload) => {
+  console.log('ini payload', payload);
+  let user = new FormData()
+  user.append('username', payload.username)
+  user.append('fullname', payload.fullname)
+  user.append('password', payload.password)
+  user.append('image', payload.image)
+  http.put('/users/' +payload.id, user)
+  .then(({data}) => {
+    router.push('/home')
+  })
+  .catch((err) => {
+    console.log(err)
+  })
+}
