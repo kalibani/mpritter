@@ -3,14 +3,15 @@ Mpritter it's an App like a Twitter, mini twitter .
 you can send tweet, delete tweet, search by hashtag and updating your profile
 
 client side:
-cd client
-npm install
-npm run dev
+cd client,
+npm install,
+npm run dev,
+or
 npm run build
 
 server side:
-cd server
-npm install
+cd server,
+npm install,
 nodemon ./bin/www
 
 Enpoint List of applications:
