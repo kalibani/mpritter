@@ -9,6 +9,7 @@ require('dotenv').config()
 const mongoose = require('mongoose')
 const index = require('./routes/index');
 const users = require('./routes/users');
+const twits = require('./routes/twit');
 
 const app = express();
 
@@ -35,6 +36,7 @@ app.use(cors())
 
 app.use('/', index);
 app.use('/api/users', users);
+app.use('/api/twits', twits);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
