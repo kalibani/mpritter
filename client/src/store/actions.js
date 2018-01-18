@@ -116,6 +116,7 @@ export const updateProfile = ({ commit }, payload) => {
   user.append('username', payload.username)
   user.append('fullname', payload.fullname)
   user.append('password', payload.password)
+  user.append('email', payload.email)
   user.append('image', payload.image)
   http.put('/users/' +payload.id, user)
   .then(({data}) => {
