@@ -1,9 +1,17 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express')
+const router = express.Router()
+const user = require('../controllers/userCtrl')
+const auth = require('../middlewares/Authorization')
+const imageHelper = require('../helpers/imageHelpers')
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+router.post('/auth/login', user.login)
+router.post('/auth/register', user.register)
+router.post('/profile', auth.authorization, user.getProfile)
+router.put('/:id', auth.authorization,
+  auth.isSelf,
+  imageHelper.multer.single('image'),
+  imageHelper.sendUploadToGCS,
+  user.updateProfile
+)
 
-module.exports = router;
+module.exports = router
